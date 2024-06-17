@@ -43,18 +43,6 @@ User *User::create(string n, string u, string p, const User *currentUser) {
   return user;
 }
 
-void User::addToPointerArray(User *arr[], size_t arrSize) {
-
-  if (arr[arrSize - 1] != NULL)
-    return;
-
-  int i = 0;
-  while (arr[i] != NULL) {
-    i++;
-  }
-  arr[i] = this;
-}
-
 void User::print() {
   cout << "Name: " << this->name << endl
        << "Username: " << this->username << endl;
@@ -100,4 +88,16 @@ bool User::hasPermission(string title) const {
       return true;
   }
   return false;
+}
+
+void User::addToPointerArray(User *arr[], size_t arrSize) {
+
+  if (arr[arrSize - 1] != NULL)
+    return;
+
+  int i = 0;
+  while (arr[i] != NULL) {
+    i++;
+  }
+  arr[i] = this;
 }
