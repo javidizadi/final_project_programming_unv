@@ -18,6 +18,7 @@ public:
   bool checkAuth(string, string);
   void addPermission(Permission *);
 
+  string getName();
   bool hasPermission(const Permission *) const;
   bool hasPermission(string) const;
   void addToPointerArray(User *[], size_t);
@@ -82,6 +83,8 @@ void User::addPermission(Permission *p) {
   }
   p->addToPointerArray(this->permissions, MAX_USER_PERMISSIONS);
 }
+
+string User::getName() { return this->name; }
 
 bool User::hasPermission(const Permission *p) const {
   for (size_t i = 0; this->permissions[i] != NULL; i++) {
