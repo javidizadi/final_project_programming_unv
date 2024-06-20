@@ -1,7 +1,7 @@
 #include "auth.h"
 #include "init.h"
 #include "menu_utils.h"
-#include "utils.h"
+
 #include <cctype>
 #include <iostream>
 

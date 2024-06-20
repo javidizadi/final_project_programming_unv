@@ -3,7 +3,6 @@
 #include "date_time.h"
 #include "permission.h"
 #include "question_base.h"
-#include "utils.h"
 #include <cctype>
 #include <iostream>
 using namespace std;
