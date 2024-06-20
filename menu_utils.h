@@ -3,51 +3,78 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+
+#ifdef _WIN32
+#include <conio.h>
+#endif
+
 using namespace std;
 
+void printTitle(string, size_t);
+void WaitForEnterKey();
+void printTextInBox(string);
 char readKeyPress();
+char getMenuChoice();
+string getPassword();
+void clearScreen();
 
-void printMessage(string title, size_t xPadding = 5) {
-  string body = string((title.length() + 2 * (xPadding + 1)), '=');
-  cout << body << endl
-       << '|' << string(xPadding, ' ') << title << string(xPadding, ' ') << '|'
-       << endl
-       << body << endl;
+void printTitle(string title, size_t xPadding = 5) {
+  printTextInBox(string(xPadding, ' ') + title + string(xPadding, ' '));
 }
+
+void WaitForEnterKey() {
+  cout << "Press Enter to continue...";
+  while (readKeyPress() != '\n')
+    ;
+}
+
+void printTextInBox(string text) {
+  string body = string(text.length() + 2, '=');
+  cout << body << endl << '|' << text << '|' << endl << body << endl;
+}
+
+#ifdef _WIN32
+char readKeyPress() { return _getch(); }
+#elif _POSIX_C_SOURCE >= 2 // macro feature testing for popen and pclose
+char readKeyPress() {
+
+  fflush(stdout); // write everthing remains in stdout buffer.
+
+  char choice;
+
+  FILE *p = popen("read -s -n 1 choice && echo $choice", "r");
+  if (p == NULL || (choice = fgetc(p)) == EOF) {
+    cout << "Failed to read input." << endl;
+    exit(2);
+  }
+  pclose(p);
+
+  return choice;
+}
+#endif
 
 char getMenuChoice() {
   cout << endl << "Enter : ";
 
-#ifdef _POSIX_C_SOURCE
-
-  char choice = readKeyPress();
-
-#else
-
-  char choice;
-  cin >> choice;
-  cin.ignore();
-
-#endif
-
-  return choice;
+  return readKeyPress();
 }
 
-#ifdef _POSIX_C_SOURCE
-char readKeyPress() {
-  fflush(stdout); // write everthing remains in stdout buffer
+#ifdef _WIN32
+void clearScreen() { system("cls"); }
+#else
+void clearScreen() { system("clear"); }
+#endif
 
-  char buf[2];
+string getPassword() {
+  string password;
 
-  FILE *fp = popen("read -s -n 1 choice && echo $choice", "r");
-  if (fp == NULL) {
-    cout << "Failed to read key press." << endl;
-    exit(2);
+  char buf;
+  while ((buf = readKeyPress()) != '\n') {
+    password += buf;
+    cout << '*';
   }
 
-  fgets(buf, 2, fp);
-  pclose(fp);
+  cout << endl;
 
-  return buf[0];
+  return password;
 }
-#endif
