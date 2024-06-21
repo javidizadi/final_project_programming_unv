@@ -26,7 +26,6 @@ public:
   void publish();
   void unPublish();
   virtual void print() = 0;
-  virtual void printAll() = 0;
   void addTag(Tag *);
 
   static void list();

@@ -17,7 +17,7 @@ public:
   static Descriptive *create(string, DateTime, User);
   void addAnswer(string);
   void print();
-  void printAll();
+  static void printAll();
   Question *edit(string, DateTime, User, string);
   Question *edit(string, DateTime, User, string, string, string, string, char) {
     return NULL;

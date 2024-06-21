@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-class FourChoice : private Question {
+class FourChoice : public Question {
 
 private:
   string A, B, C, D;
@@ -16,10 +16,9 @@ private:
 public:
   FourChoice(string, DateTime, User, string, string, string, string, char);
   void print();
-  void printAll();
-  void list();
+  static void printAll();
 
-  Question *edit(string, DateTime, User);
+  Question *edit(string, DateTime, User, string);
   Question *edit(string, DateTime, User, string, string, string, string, char);
 
   static FourChoice *create(string, DateTime, User, string, string, string,
@@ -33,7 +32,8 @@ FourChoice::FourChoice(string question, DateTime createdAt, User user, string a,
       D(d), answer(toupper(answer)) {}
 
 // Not implemented for descriptive questions (returns NULL)
-Question *FourChoice::edit(string q, DateTime createdAt, User u) {
+Question *FourChoice::edit(string q, DateTime createdAt, User u,
+                           string answer) {
   return NULL;
 }
 
