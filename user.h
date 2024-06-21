@@ -19,6 +19,7 @@ public:
   void addPermission(Permission *);
 
   string getName();
+  string getUsername();
   bool hasPermission(const Permission *) const;
   bool hasPermission(string) const;
   void addToPointerArray(User *[], size_t);
@@ -101,3 +102,5 @@ void User::addToPointerArray(User *arr[], size_t arrSize) {
   }
   arr[i] = this;
 }
+
+string User::getUsername() { return username; }
