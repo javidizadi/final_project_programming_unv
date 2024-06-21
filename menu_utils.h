@@ -19,6 +19,7 @@ using namespace std;
 void printTitle(string, size_t);
 void WaitForEnterKey();
 void printTextInBox(string);
+void printMessagePrompt(string);
 char readKeyPress();
 char getMenuChoice();
 string getPassword();
@@ -37,6 +38,12 @@ void WaitForEnterKey() {
 void printTextInBox(string text) {
   string body = string(text.length() + 2, '=');
   cout << body << endl << '|' << text << '|' << endl << body << endl;
+}
+
+void printMessagePrompt(string text) {
+  printTextInBox(text);
+  cout << "Press Enter to continue...";
+  WaitForEnterKey();
 }
 
 #ifdef _WIN32
