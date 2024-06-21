@@ -1,4 +1,5 @@
 #pragma once
+#include "auth.h"
 #include "date_time.h"
 #include "tag.h"
 #include "user.h"
@@ -30,13 +31,15 @@ public:
 
   static void list();
 
-  virtual Question *edit(string question, DateTime createdAt, User user) = 0;
+  virtual Question *edit(string question, DateTime createdAt, User user,
+                         string answer) = 0;
   virtual Question *edit(string question, DateTime createdAt, User user,
                          string a, string b, string c, string d,
                          char answer) = 0;
 
   void addToPointerArray(Question *[], size_t);
   string getType();
+  bool isAuthorUser(User &u);
 };
 
 // ---------------------------------
@@ -85,4 +88,13 @@ void Question::addToPointerArray(Question *arr[], size_t arrSize) {
     toWrite++;
 
   *toWrite = this;
+}
+
+bool Question::isAuthorUser(User &u) {
+
+  if (this->user.getUsername() == u.getUsername()) {
+    return true;
+  }
+
+  return false;
 }
