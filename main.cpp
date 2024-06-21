@@ -56,6 +56,7 @@ void mainMenu() {
     case 'b':
       clearScreen();
       Question::list();
+      WaitForEnterKey();
       return;
 
     case 'x':
@@ -445,12 +446,12 @@ void questionMenu() {
     }
 
     case 't': { // Add tag to question
-      size_t id;
+      size_t q_id;
       cout << "Enter Question ID: ";
-      cin >> id;
+      cin >> q_id;
       cin.ignore();
 
-      if (id > MAX_QUESTIONS - 1 || questions[id] == NULL) {
+      if (q_id > MAX_QUESTIONS - 1 || questions[q_id] == NULL) {
         clearScreen();
         printMessagePrompt("Failed to find four choice question.");
         break;
@@ -461,13 +462,13 @@ void questionMenu() {
       cin >> tag_id;
       cin.ignore();
 
-      if (tag_id > MAX_TAGS - 1 || tags[id] == NULL) {
+      if (tag_id > MAX_TAGS - 1 || tags[tag_id] == NULL) {
         clearScreen();
         printMessagePrompt("Failed to find tag.");
         break;
       }
 
-      questions[id]->addTag(tags[id]);
+      questions[q_id]->addTag(tags[tag_id]);
 
       WaitForEnterKey();
       break;
