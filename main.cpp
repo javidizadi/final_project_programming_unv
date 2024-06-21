@@ -4,7 +4,10 @@
 #include "four_choice.h"
 #include "init.h"
 #include "menu_utils.h"
+#include "permission.h"
 #include "question_base.h"
+#include "tag.h"
+#include "user.h"
 
 #include <cctype>
 #include <iostream>
@@ -118,6 +121,8 @@ void tagMenu() {
   while (true) {
     clearScreen();
 
+    printTitle("Tag Menu");
+
     cout << "[1] List of tags with ID\n"
          << "[2] Create Tag\n"
          << "[0] Go Back\n";
@@ -153,7 +158,6 @@ void tagMenu() {
   }
 }
 
-// TODO
 void questionMenu() {
   while (true) {
     clearScreen();
@@ -170,6 +174,7 @@ void questionMenu() {
          << "[H] Print Four Choice Question\n"
          << "[I] Publish a Question\n"
          << "[J] Unpublish a Question\n"
+         << "[T] Add a tag to question\n"
          << "[X] Go Back\n";
 
     char choice = getMenuChoice();
@@ -226,9 +231,6 @@ void questionMenu() {
         printMessagePrompt("Selected question isn't descriptive");
         break;
       }
-
-      questions[id]->print();
-      cout << endl;
 
       string question, answer;
 
@@ -442,6 +444,35 @@ void questionMenu() {
       break;
     }
 
+    case 't': { // Add tag to question
+      size_t id;
+      cout << "Enter Question ID: ";
+      cin >> id;
+      cin.ignore();
+
+      if (id > MAX_QUESTIONS - 1 || questions[id] == NULL) {
+        clearScreen();
+        printMessagePrompt("Failed to find four choice question.");
+        break;
+      }
+
+      size_t tag_id;
+      cout << "Enter Tag ID: ";
+      cin >> tag_id;
+      cin.ignore();
+
+      if (tag_id > MAX_TAGS - 1 || tags[id] == NULL) {
+        clearScreen();
+        printMessagePrompt("Failed to find tag.");
+        break;
+      }
+
+      questions[id]->addTag(tags[id]);
+
+      WaitForEnterKey();
+      break;
+    }
+
     case 'x':
       return;
 
@@ -451,5 +482,89 @@ void questionMenu() {
   }
 }
 
-// TODO
-void userMenu() {}
+void userMenu() {
+  while (true) {
+    clearScreen();
+
+    cout << "[1] List of users\n"
+         << "[2] Create new user\n"
+         << "[3] Add permission to a user\n"
+         << "[0] Go Back\n";
+
+    char choice = getMenuChoice();
+    clearScreen();
+
+    switch (choice) {
+
+    case '1': {
+      User::list();
+      WaitForEnterKey();
+    }
+
+    case '2': {
+      string name, username, password;
+
+      cout << "Enter name: ";
+      getline(cin, name);
+
+      cout << "Enter username: ";
+      getline(cin, username);
+
+      cout << "Enter password: ";
+      password = getPassword();
+
+      User *u = User::create(name, username, password, Auth::whoami());
+      if (u == NULL) {
+        clearScreen();
+        printMessagePrompt("You don't have enough permissions.");
+        break;
+      }
+
+      WaitForEnterKey();
+      break;
+    }
+
+    case '3': {
+
+      size_t user_id;
+      cout << "Enter User ID: ";
+      cin >> user_id;
+      cin.ignore();
+
+      if (user_id > MAX_USERS - 1 || users[user_id] == NULL) {
+        clearScreen();
+        printMessagePrompt("Failed to find selected user.");
+        break;
+      }
+
+      string title;
+      cout << "Enter permission title: ";
+      getline(cin, title);
+
+      size_t permission_id = 0;
+      for (size_t i = 0; permissions[i] != NULL; i++, permission_id++) {
+        if (permissions[i]->getTitle() == title) {
+          users[i]->addPermission(permissions[i]);
+          break;
+        }
+      }
+
+      if (permissions[permission_id] == NULL) {
+        clearScreen();
+        printMessagePrompt("Failed to find selected permission.");
+        break;
+      }
+
+      WaitForEnterKey();
+      break;
+    }
+
+    case '0': {
+      return;
+    }
+
+    default:
+      break;
+    }
+  }
+}
