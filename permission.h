@@ -25,11 +25,14 @@ Permission ADD_FOUR_CHOICE_QUESTION_PERM("add-four-choice-question");
 Permission ADD_USER_PERM("add-user");
 Permission EDIT_DESCRIPTIVE_QUESTION_PERM("edit-descriptive-question");
 Permission EDIT_FOUR_CHOICE_QUESTION_PERM("edit-four-choice-question");
+Permission PUBLISH_QUESTION_PERM("publish-question");
 
-Permission *permissions[MAX_PERMISSIONS] = {
-    &ADD_DESCRIPTIVE_QUESTION_PERM, &ADD_FOUR_CHOICE_QUESTION_PERM,
-    &ADD_USER_PERM, &EDIT_FOUR_CHOICE_QUESTION_PERM,
-    &EDIT_DESCRIPTIVE_QUESTION_PERM};
+Permission *permissions[MAX_PERMISSIONS] = {&ADD_DESCRIPTIVE_QUESTION_PERM,
+                                            &ADD_FOUR_CHOICE_QUESTION_PERM,
+                                            &ADD_USER_PERM,
+                                            &EDIT_FOUR_CHOICE_QUESTION_PERM,
+                                            &EDIT_DESCRIPTIVE_QUESTION_PERM,
+                                            &PUBLISH_QUESTION_PERM};
 
 Permission::Permission(string title) : title(title) {}
 
