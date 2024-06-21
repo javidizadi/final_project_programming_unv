@@ -44,7 +44,7 @@ char readKeyPress() { return _getch(); }
 #elif _POSIX_C_SOURCE >= 2 // macro feature testing for popen and pclose
 char readKeyPress() {
 
-  fflush(stdout); // write everthing remains in stdout buffer.
+  fflush(stdout); // write everything remains in stdout buffer.
 
   char choice;
 
