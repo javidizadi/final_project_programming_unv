@@ -23,6 +23,7 @@ public:
   bool hasPermission(const Permission *) const;
   bool hasPermission(string) const;
   void addToPointerArray(User *[], size_t);
+  static void list();
 };
 
 // ---------------------------------
@@ -104,3 +105,11 @@ void User::addToPointerArray(User *arr[], size_t arrSize) {
 }
 
 string User::getUsername() { return username; }
+
+void User::list() {
+  for (size_t i = 0; users[i] != NULL; i++) {
+    cout << "------------------------------------" << endl;
+    users[i]->print();
+    cout << "------------------------------------" << endl;
+  }
+}
