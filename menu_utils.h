@@ -70,10 +70,20 @@ string getPassword() {
 
   char buf;
   while ((buf = readKeyPress()) != '\n') {
-    password += buf;
-    cout << '*';
-  }
 
+    if (buf == 127) { // means backspace
+
+      if (password.length() == 0)
+        continue;
+
+      cout << "\b \b";
+      password.pop_back();
+
+    } else {
+      password += buf;
+      cout << '*';
+    }
+  }
   cout << endl;
 
   return password;
