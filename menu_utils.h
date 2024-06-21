@@ -36,8 +36,8 @@ void WaitForEnterKey() {
 }
 
 void printTextInBox(string text) {
-  string body = string(text.length() + 2, '=');
-  cout << body << endl << '|' << text << '|' << endl << body << endl;
+  string body = string(text.length() + 6, '=');
+  cout << body << endl << "|  " << text << "  |" << endl << body << endl;
 }
 
 void printMessagePrompt(string text) {
