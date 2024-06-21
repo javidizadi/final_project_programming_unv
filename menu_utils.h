@@ -1,11 +1,17 @@
+
 #pragma once
-#include <cstdio>
 #include <cstdlib>
 #include <iostream>
 #include <string>
 
 #ifdef _WIN32
 #include <conio.h>
+const char BACKSPACE_CHAR = 8;
+const char ENTER_CHAR = '\r';
+#else
+#include <cstdio>
+const char BACKSPACE_CHAR = 127;
+const char ENTER_CHAR = '\n';
 #endif
 
 using namespace std;
@@ -24,7 +30,7 @@ void printTitle(string title, size_t xPadding = 5) {
 
 void WaitForEnterKey() {
   cout << "Press Enter to continue...";
-  while (readKeyPress() != '\n')
+  while (readKeyPress() != ENTER_CHAR)
     ;
 }
 
@@ -54,7 +60,7 @@ char readKeyPress() {
 #endif
 
 char getMenuChoice() {
-  cout << endl << "Enter : ";
+  cout << endl << "Select Item: ";
 
   return readKeyPress();
 }
@@ -69,9 +75,9 @@ string getPassword() {
   string password;
 
   char buf;
-  while ((buf = readKeyPress()) != '\n') {
+  while ((buf = readKeyPress()) != ENTER_CHAR) {
 
-    if (buf == 127) { // means backspace
+    if (buf == BACKSPACE_CHAR) {
 
       if (password.length() == 0)
         continue;
