@@ -7,7 +7,8 @@
 
 using namespace std;
 
-class Descriptive : private Question {
+class Descriptive : public Question {
+
 private:
   string answer;
 
@@ -17,8 +18,10 @@ public:
   void addAnswer(string);
   void print();
   void printAll();
-  Question *edit(string, DateTime, User);
-  Question *edit(string, DateTime, User, string, string, string, string, char);
+  Question *edit(string, DateTime, User, string);
+  Question *edit(string, DateTime, User, string, string, string, string, char) {
+    return NULL;
+  }
 };
 
 // ---------------------------------
@@ -27,7 +30,8 @@ Descriptive::Descriptive(string question, DateTime createdAt, User user)
 
 void Descriptive::addAnswer(string answer) { this->answer = answer; }
 
-Question *Descriptive::edit(string question, DateTime createdAt, User user) {
+Question *Descriptive::edit(string question, DateTime createdAt, User user,
+                            string answer) {
 
   if (Auth::authorize(EDIT_DESCRIPTIVE_QUESTION_PERM) == false)
     return NULL;
@@ -35,6 +39,7 @@ Question *Descriptive::edit(string question, DateTime createdAt, User user) {
   this->question = question;
   this->createdAt = createdAt;
   this->user = user;
+  this->answer = answer;
   return this;
 };
 
