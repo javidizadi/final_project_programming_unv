@@ -39,6 +39,8 @@ public:
   void addToPointerArray(Question *[], size_t);
   string getType();
   bool isAuthorUser(User &u);
+
+  virtual ~Question() {}
 };
 
 // ---------------------------------
