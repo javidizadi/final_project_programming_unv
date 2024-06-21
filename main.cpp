@@ -10,6 +10,10 @@ using namespace std;
 void mainMenu();
 void loginMenu();
 
+void questionMenu();
+void tagMenu();
+void userMenu();
+
 int main() {
 
   init();
@@ -25,16 +29,16 @@ int main() {
 void mainMenu() {
   clearScreen();
 
-  printMessage("Main Menu");
+  printTitle("Main Menu");
 
-  int choice;
+  char choice;
 
   if (Auth::whoami() == NULL) {
     cout << "[A] Login\n"
          << "[B] View Questions\n"
          << "[X] Exit\n";
 
-    char choice = getMenuChoice();
+    choice = getMenuChoice();
 
     switch (tolower(choice)) {
     case 'a':
@@ -54,27 +58,59 @@ void mainMenu() {
       return;
     }
   } else {
-    cin >> choice;
-    cin.ignore();
+
+    cout << "Hello " << Auth::whoami()->getName() << "!" << endl << endl;
+
+    cout << "[1] Question Menu\n"
+         << "[2] Tag Menu\n"
+         << "[3] User Menu\n";
+
+    choice = getMenuChoice();
+
+    // TODO
+    switch (tolower(choice)) {
+    case '1':
+      questionMenu();
+      return;
+
+    case '2':
+      tagMenu();
+      return;
+
+    case '3':
+      userMenu();
+      return;
+
+    default:
+      return;
+    }
   }
 }
 
 void loginMenu() {
   clearScreen();
 
-  printMessage("Login");
+  printTitle("Login");
 
   string username;
   cout << "Username: ";
   getline(cin, username);
 
-  string password;
   cout << "Password: ";
-  getline(cin, password);
+  string password = getPassword();
 
   if (Auth::login(username, password) == NULL) {
     clearScreen();
-    printMessage("Incorrect username or password.");
-    // waitToPressEnter();
+    printTextInBox("Incorrect username or password.");
+    WaitForEnterKey();
   }
 }
+
+// TODO
+void tagMenu() {}
+
+// TODO
+void questionMenu() {}
+
+// TODO
+void userMenu() {}
