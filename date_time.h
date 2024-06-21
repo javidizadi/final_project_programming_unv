@@ -32,8 +32,8 @@ DateTime getCurrentLocalTime() {
   time_t t = chrono::system_clock::to_time_t(chrono::system_clock::now());
   tm *time = localtime(&t);
 
-  return DateTime{time->tm_year, time->tm_mon, time->tm_yday,
-                  time->tm_hour, time->tm_min, time->tm_sec};
+  return DateTime{time->tm_year + 1900, time->tm_mon + 1, time->tm_mday,
+                  time->tm_hour,        time->tm_min,     time->tm_sec};
 }
 
 DateTime getUserDateTime() {
