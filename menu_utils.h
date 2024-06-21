@@ -42,7 +42,6 @@ void printTextInBox(string text) {
 
 void printMessagePrompt(string text) {
   printTextInBox(text);
-  cout << "Press Enter to continue...";
   WaitForEnterKey();
 }
 
