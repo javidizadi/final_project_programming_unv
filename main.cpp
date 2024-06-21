@@ -486,6 +486,8 @@ void userMenu() {
   while (true) {
     clearScreen();
 
+    printTitle("User Menu");
+
     cout << "[1] List of users\n"
          << "[2] Create new user\n"
          << "[3] Add permission to a user\n"
@@ -499,6 +501,7 @@ void userMenu() {
     case '1': {
       User::list();
       WaitForEnterKey();
+      break;
     }
 
     case '2': {
@@ -544,12 +547,13 @@ void userMenu() {
       size_t permission_id = 0;
       for (size_t i = 0; permissions[i] != NULL; i++, permission_id++) {
         if (permissions[i]->getTitle() == title) {
-          users[i]->addPermission(permissions[i]);
+          users[user_id]->addPermission(permissions[i]);
           break;
         }
       }
 
-      if (permissions[permission_id] == NULL) {
+      if (permission_id > MAX_PERMISSIONS - 1 ||
+          permissions[permission_id] == NULL) {
         clearScreen();
         printMessagePrompt("Failed to find selected permission.");
         break;

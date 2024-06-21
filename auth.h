@@ -21,7 +21,7 @@ User *Auth::auth = NULL;
 
 User *Auth::login(string username, string password) {
 
-  for (int i = 0; users[i] != NULL; i++) {
+  for (size_t i = 0; users[i] != NULL; i++) {
 
     if (users[i]->checkAuth(username, password)) {
       Auth::auth = users[i];

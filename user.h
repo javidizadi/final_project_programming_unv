@@ -58,11 +58,11 @@ void User::print() {
 }
 
 bool User::checkAuth(string username, string password) {
-  for (size_t i = 0; users[i] != NULL; i++) {
-    if (users[i]->username == username && users[i]->password == password) {
-      return true;
-    }
+
+  if (this->username == username && this->password == password) {
+    return true;
   }
+
   return false;
 }
 
@@ -109,6 +109,7 @@ string User::getUsername() { return username; }
 void User::list() {
   for (size_t i = 0; users[i] != NULL; i++) {
     cout << "------------------------------------" << endl;
+    cout << "ID: " << i << endl;
     users[i]->print();
     cout << "------------------------------------" << endl;
   }
