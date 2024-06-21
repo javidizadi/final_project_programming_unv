@@ -1,3 +1,4 @@
+#pragma once
 #include "permission.h"
 #include "user.h"
 #include <iostream>
