@@ -21,7 +21,6 @@ public:
   string getName();
   string getUsername();
   bool hasPermission(const Permission *) const;
-  bool hasPermission(string) const;
   void addToPointerArray(User *[], size_t);
   static void list();
 };
@@ -79,14 +78,6 @@ string User::getName() { return this->name; }
 bool User::hasPermission(const Permission *p) const {
   for (size_t i = 0; this->permissions[i] != NULL; i++) {
     if (*this->permissions[i] == *p)
-      return true;
-  }
-  return false;
-}
-
-bool User::hasPermission(string title) const {
-  for (size_t i = 0; this->permissions[i] != NULL; i++) {
-    if (this->permissions[i]->getTitle() == title)
       return true;
   }
   return false;
