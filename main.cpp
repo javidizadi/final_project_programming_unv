@@ -55,7 +55,7 @@ void mainMenu() {
 
     case 'b':
       clearScreen();
-      Question::list();
+      Question::printAll();
       WaitForEnterKey();
       return;
 
@@ -184,7 +184,7 @@ void questionMenu() {
 
     switch (tolower(choice)) {
     case 'a': { // List of Descriptive Questions with ID
-      Descriptive::list();
+      Descriptive::printAll();
       WaitForEnterKey();
       break;
     }

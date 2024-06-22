@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Descriptive : public Question {
+class Descriptive : private Question {
 
 private:
   string answer;

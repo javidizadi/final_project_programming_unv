@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-class FourChoice : public Question {
+class FourChoice : private Question {
 
 private:
   string A, B, C, D;

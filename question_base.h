@@ -28,7 +28,7 @@ public:
   virtual void print() = 0;
   void addTag(Tag *);
 
-  static void list();
+  static void printAll();
 
   virtual Question *edit(string question, DateTime createdAt, User user,
                          string answer) = 0;
@@ -63,7 +63,7 @@ void Question::addTag(Tag *tag) {
   tag->addToPointerArray(this->tags, MAX_USER_TAGS);
 }
 
-void Question::list() {
+void Question::printAll() {
   for (size_t i = 0; questions[i] != NULL; i++) {
     cout << endl << "------------------------------------------" << endl;
 
